@@ -137,7 +137,7 @@ int AstarCalculateSteps(Item state, Item target)
 	{
 		List openList;
 		List closeList;
-		/*初始化*/
+		/* 初始化 */
 		InitializeList(&openList);
 		if (ListIsFull(&openList))
 		{
@@ -191,7 +191,7 @@ int AstarFindAllSolutions(Item state, Item target, int currentMethodNumber)
 {
 	List openList;
 	List closeList;
-	/*初始化*/
+	/* 初始化 */
 	InitializeList(&openList);
 	if (ListIsFull(&openList))
 	{
@@ -255,7 +255,7 @@ void BFSearch(Item state, Item target)
 {
 	List openList;
 	List closeList;
-	/*初始化*/
+	/* 初始化 */
 	InitializeList(&openList);
 	if (ListIsFull(&openList))
 	{
@@ -304,7 +304,7 @@ void DFSearch(Item state, Item target, int maxDepth)
 {
 	List openList;
 	List closeList;
-	/*初始化*/
+	/* 初始化 */
 	InitializeList(&openList);
 	if (ListIsFull(&openList))
 	{

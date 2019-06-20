@@ -57,7 +57,7 @@ unsigned int ListItemCount(const List * plist)
 	return count;
 }
 
-//插入到一个有序单链表。函数的参数是一个指向链表第一个节点的指针的指针，以及一个需要插入的新值。
+// 插入到一个有序单链表。函数的参数是一个指向链表第一个节点的指针的指针，以及一个需要插入的新值。
 bool AddItem(const Item * pItem, List * plist)
 {	// 为新节点分配内存，并把新值存储到新节点中，如果内存分配失败，函数返回FALSE。
 	Node * temp = (Node *)malloc(sizeof(Node));
@@ -89,7 +89,7 @@ bool AddItem(const Item * pItem, List * plist)
 	return true;
 }
 
-//链表头插法
+// 链表头插法
 bool headInserted(const Item * pItem, List * plist)
 {
 	Node * pnew = (Node *)malloc(sizeof(Node));
@@ -101,7 +101,7 @@ bool headInserted(const Item * pItem, List * plist)
 	return true;
 }
 
-//链表尾插法
+// 链表尾插法
 bool tailInserted(const Item * pItem, List * plist)
 {
 	Node * temp = (Node *)malloc(sizeof(Node));
@@ -167,7 +167,7 @@ void EmptyTheList(List * plist)
 	}
 }
 
-char calculateReverseOrder(Item * pItem)	//计算逆序和
+char calculateReverseOrder(Item * pItem)	// 计算逆序和
 {
 	char i, j, k, index, number, temp[8];
 	k = number = 0;
