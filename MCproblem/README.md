@@ -52,9 +52,9 @@ typedef struct status
 
 以下是部分实验数据：（NUMBER表示修道士总人数，CAPACITY表示船的最大载客量）  
 ```
-NUMBER = 10, CAPACITY = 4 时，有361个最短路径解，最少步数是17步；  
+NUMBER = 10, CAPACITY = 4 时，有 361 个最短路径解，最少步数是 17 步；  
 NUMBER = 10, CAPACITY = 3 时，无解，程序输出 No solution!  
-NUMBER = 11, CAPACITY = 4 时，有361个最短路径解，最少步数是19步；  
-NUMBER = 10, CAPACITY = 7 时，有75个最短路径解，最少步数是7步；  
+NUMBER = 11, CAPACITY = 4 时，有 361 个最短路径解，最少步数是 19 步；  
+NUMBER = 10, CAPACITY = 7 时，有 75 个最短路径解，最少步数是 7 步；  
 NUMBER = 19, CAPACITY = 3 时，无解，程序输出 No solution!  
 ```
