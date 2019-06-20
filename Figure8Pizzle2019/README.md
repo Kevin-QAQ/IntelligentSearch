@@ -26,7 +26,7 @@
 
 八数码结构体定义：  
 ```c
-	typedef struct status
+typedef struct status
 {
 	char chessboard[3][3];
 	int deep;
