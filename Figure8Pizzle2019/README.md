@@ -1,6 +1,8 @@
 # 八数码难题
 通过单步移动把下面的矩阵移动成1-8环绕一周的矩阵（即0在中间，1-8顺序排成一圈，1在哪儿无所谓）  
-![avatar](https://github.com/KevinNum1/IntelligentSearch/blob/master/images/figure8matrix.png)
+<p align="center">
+	<img src="https://github.com/KevinNum1/IntelligentSearch/blob/master/images/figure8matrix.png">
+</p>
 
 ##程序说明
 该程序采用C语言实现，分别采用A*算法、广度优先搜索算法和深度优先搜索算法。所有搜索算法具体步骤都可归纳如下：  
