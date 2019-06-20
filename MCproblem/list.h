@@ -3,7 +3,7 @@
 
 #include <stdbool.h>     /* C99 feature         */
 
-//定义结构体保存本岸的修道士人数、野人人数和船只数目的状态信息
+// 定义结构体保存本岸的修道士人数、野人人数和船只数目的状态信息
 typedef struct status
 {
 	int missionaries;

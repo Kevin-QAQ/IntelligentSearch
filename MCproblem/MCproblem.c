@@ -46,7 +46,7 @@ void solveMC(Item state)
 	List openList;
 	List closeList;
 
-	/*初始化*/
+	/* 初始化 */
 	InitializeList(&openList);
 	if (ListIsFull(&openList))
 	{
@@ -82,7 +82,7 @@ void solveMC(Item state)
 
 		if((methodNumber == 1) || (closeList->item.deep <= minimalSteps))
 		{
-			//到达目标状态了——全员都在河对岸
+			// 到达目标状态了——全员都在河对岸
 			if ((closeList->item.missionaries == 0) && (closeList->item.cannibals == 0) && (closeList->item.boat == 0))
 			{
 				if (methodNumber == 1)
@@ -99,7 +99,7 @@ void solveMC(Item state)
 		else
 			continue;
 	}
-	//遍历完所有可达状态之后没有目标状态，即无法在此约束条件下将修道士和野人全部安全运过河
+	// 遍历完所有可达状态之后没有目标状态，即无法在此约束条件下将修道士和野人全部安全运过河
 	if (!minimalSteps)
 		puts("\nNo solution!");
 

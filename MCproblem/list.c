@@ -59,7 +59,7 @@ unsigned int ListItemCount(const List * plist)
 	return count;
 }
 
-//插入到一个有序单链表。函数的参数是一个指向链表第一个节点的指针的指针，以及一个需要插入的新值。
+// 插入到一个有序单链表。函数的参数是一个指向链表第一个节点的指针的指针，以及一个需要插入的新值。
 bool AddItem(const Item * pItem, List * plist)
 {	// 为新节点分配内存，并把新值存储到新节点中，如果内存分配失败，函数返回FALSE。
 	Node * temp = (Node *)malloc(sizeof(Node));
@@ -91,7 +91,7 @@ bool AddItem(const Item * pItem, List * plist)
 	return true;
 }
 
-//链表头插法
+// 链表头插法
 bool headInserted(const Item * pItem, List * plist)
 {
 	Node * pnew = (Node *)malloc(sizeof(Node));
@@ -103,7 +103,7 @@ bool headInserted(const Item * pItem, List * plist)
 	return true;
 }
 
-//删除链表的一个结点
+// 删除链表的一个结点
 bool DeleteItem(List * plist)
 {
 	if (ListIsEmpty(plist))
@@ -147,13 +147,13 @@ void EmptyTheList(List * plist)
 	}
 }
 
-char setF(Item * pItem)		//更新结点的估价函数值
+char setF(Item * pItem)		// 更新结点的估价函数值
 {
 	pItem->f = pItem->deep + (pItem->missionaries + pItem->cannibals - 2 * pItem->boat);
 	return pItem->f;
 }
 
-void update(Item * pItem, List * pOpenList)		//更新链表
+void update(Item * pItem, List * pOpenList)		// 更新链表
 {
 	setF(pItem);
 	if (AddItem(pItem, pOpenList) == false)
@@ -163,7 +163,7 @@ void update(Item * pItem, List * pOpenList)		//更新链表
 	}
 }
 
-void display(const Item * pItem)	//输出安全过河方案
+void display(const Item * pItem)	// 输出安全过河方案
 {
 	static int step;
 	if (pItem->parent->parent == NULL)
@@ -188,7 +188,7 @@ void display(const Item * pItem)	//输出安全过河方案
 	}
 }
 
-void showItem(const Item * pItem)	//输出结点的信息
+void showItem(const Item * pItem)	// 输出结点的信息
 {
 	printf(" ( %1d, %1d, %1d ) \n", pItem->missionaries, pItem->cannibals, pItem->boat);
 }
@@ -200,16 +200,16 @@ static void CopyToNode(Item item, Node * pnode)
 	pnode->item = item;  /* structure copy */
 }
 
-//从当前结点扩展出合法的新结点
+// 从当前结点扩展出合法的新结点
 bool Expand(Item * pItem, List * pOpenList, const List * pCloseList)
 {
 	bool boolFlag = false;
 	int deltaM, deltaC;
 	Item temp;
 
-	if (pItem->boat == 0)	//船在河对岸，需要从对岸运到本岸
+	if (pItem->boat == 0)	// 船在河对岸，需要从对岸运到本岸
 	{
-		//船上至少一个修道士
+		// 船上至少一个修道士
 		for (deltaM = 1; deltaM <= SMALLER(NUMBER - pItem->missionaries, CAPACITY); deltaM++)
 		{
 			for (deltaC = 0; deltaC <= MIN(deltaM, NUMBER - pItem->cannibals, CAPACITY - deltaM); deltaC++)
@@ -228,7 +228,7 @@ bool Expand(Item * pItem, List * pOpenList, const List * pCloseList)
 			}
 		}
 
-		//船上没有修道士
+		// 船上没有修道士
 		deltaM = 0;
 		for (deltaC = 1; deltaC <= SMALLER(NUMBER - pItem->cannibals, CAPACITY); deltaC++)
 		{
@@ -244,9 +244,9 @@ bool Expand(Item * pItem, List * pOpenList, const List * pCloseList)
 			}
 		}
 	}
-	else	//船在本岸，需要运到河对岸
+	else	// 船在本岸，需要运到河对岸
 	{
-		//船上至少一个修道士
+		// 船上至少一个修道士
 		for (deltaM = 1; deltaM <= SMALLER(pItem->missionaries, CAPACITY); deltaM++)
 		{
 			for (deltaC = 0; deltaC <= MIN(deltaM, pItem->cannibals, CAPACITY - deltaM); deltaC++)
@@ -265,7 +265,7 @@ bool Expand(Item * pItem, List * pOpenList, const List * pCloseList)
 			}
 		}
 
-		//船上没有修道士
+		// 船上没有修道士
 		deltaM = 0;
 		for (deltaC = 1; deltaC <= SMALLER(pItem->cannibals, CAPACITY); deltaC++)
 		{
@@ -285,7 +285,7 @@ bool Expand(Item * pItem, List * pOpenList, const List * pCloseList)
 	return boolFlag;
 }
 
-bool isLegal(const Item * pItem)	//判断结点状态是否合法
+bool isLegal(const Item * pItem)	// 判断结点状态是否合法
 {
 	if ((pItem->missionaries != 0) && (pItem->missionaries != NUMBER))
 	{
