@@ -32,18 +32,17 @@ int main(void) {
 	int i, minimalSteps, currentMethodNumber;
 	int steps[SIZE];
 
-	puts("Look at these two examples first: \n");
-
-	puts("Example 1£º\n");
-	Item state1 = { { { 2, 8, 3 }, { 1, 6, 4 }, { 7, 0, 5 } }, 0, 0, NULL };
+	puts("Look at an example first: \n");
+	puts("Example£º\n");
+	Item state = { { { 2, 8, 3 }, { 1, 0, 4 }, { 5, 6, 7 } }, 0, 0, NULL };
 	puts("Initial state: ");
-	showItem(&state1);
+	showItem(&state);
 
 	first = false;
 	minimalSteps = -1;
 	for (i = 0; i < SIZE; i++)
 	{
-		steps[i] = AstarCalculateSteps(state1, target[i]);
+		steps[i] = AstarCalculateSteps(state, target[i]);
 		if ((steps[i] >= 0) && (first == false))
 		{
 			minimalSteps = steps[i];
@@ -64,72 +63,30 @@ int main(void) {
 		currentMethodNumber = 1;
 		for (i = 0; i < SIZE; i++)
 			if (steps[i] == minimalSteps)
-				currentMethodNumber = AstarFindAllSolutions(state1, target[minimalPath], currentMethodNumber);
+				currentMethodNumber = AstarFindAllSolutions(state, target[minimalPath], currentMethodNumber);
 		puts("That's all.\n");
 
 		puts("Breadth-first search:\n");
-		BFSearch(state1, target[minimalPath]);
+		BFSearch(state, target[minimalPath]);
 
 		puts("Depth-first search:\n");
-		DFSearch(state1, target[minimalPath], minimalSteps);
-	}
-	else
-		puts("\nNo solution!");
-
-	puts("Example 2£º\n");
-	Item state2 = { { { 2, 8, 3 }, { 1, 0, 4 }, { 5, 6, 7 } }, 0, 0, NULL };
-	puts("Initial state: ");
-	showItem(&state2);
-
-	first = false;
-	minimalSteps = -1;
-	for (i = 0; i < SIZE; i++)
-	{
-		steps[i] = AstarCalculateSteps(state2, target[i]);
-		if ((steps[i] >= 0) && (first == false))
-		{
-			minimalSteps = steps[i];
-			minimalPath = i;
-			first = true;
-		}
-		if ((first == true) && (steps[i] >= 0) && (steps[i] < minimalSteps))
-		{
-			minimalSteps = steps[i];
-			minimalPath = i;
-		}
-	}
-	if (minimalSteps >= 0)
-	{
-		printf("The minimal steps are: \t(%d steps)\n\n", minimalSteps);
-
-		puts("A* algorithm:\n");
-		currentMethodNumber = 1;
-		for (i = 0; i < SIZE; i++)
-			if (steps[i] == minimalSteps)
-				currentMethodNumber = AstarFindAllSolutions(state2, target[minimalPath], currentMethodNumber);
-		puts("That's all.\n");
-
-		puts("Breadth-first search:\n");
-		BFSearch(state2, target[minimalPath]);
-
-		puts("Depth-first search:\n");
-		DFSearch(state2, target[minimalPath], minimalSteps);
+		DFSearch(state, target[minimalPath], minimalSteps);
 	}
 	else
 		puts("\nNo solution!");
 
 	puts("Please enter the initial state (exit when you enter q): ");
 	putchar('\t');
-	while (input(&state2))
+	while (input(&state))
 	{
 		puts("Initial state: ");
-		showItem(&state2);
+		showItem(&state);
 
 		first = false;
 		minimalSteps = -1;
 		for (i = 0; i < SIZE; i++)
 		{
-			steps[i] = AstarCalculateSteps(state2, target[i]);
+			steps[i] = AstarCalculateSteps(state, target[i]);
 			if ((steps[i] >= 0) && (first == false))
 			{
 				minimalSteps = steps[i];
@@ -144,20 +101,20 @@ int main(void) {
 		}
 		if (minimalSteps >= 0)
 		{
-			printf("The minimal steps are: \t(%d steps)\n\n", minimalSteps);
+			printf("The minimal steps are: \t%d steps\n\n", minimalSteps);
 
 			puts("A* algorithm:\n");
 			currentMethodNumber = 1;
 			for (i = 0; i < SIZE; i++)
 				if (steps[i] == minimalSteps)
-					currentMethodNumber = AstarFindAllSolutions(state2, target[minimalPath], currentMethodNumber);
+					currentMethodNumber = AstarFindAllSolutions(state, target[minimalPath], currentMethodNumber);
 			puts("That's all.\n");
 
 			puts("Breadth-first search:\n");
-			BFSearch(state2, target[minimalPath]);
+			BFSearch(state, target[minimalPath]);
 
 			puts("Depth-first search:\n");
-			DFSearch(state2, target[minimalPath], minimalSteps);
+			DFSearch(state, target[minimalPath], minimalSteps);
 		}
 		else
 			puts("\nNo solution!");
