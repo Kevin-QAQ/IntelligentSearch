@@ -5,9 +5,13 @@
 
 如果野人会服从任何一次过河安排，请规划一个确保修道士和野人都能过河，且没有修道士被野人吃掉的安全过河计划。
 
+# Requirements
+支持 C99 标准的 C 语言环境
+
 # 程序说明
 该程序采用 C 语言实现，采用全局择优搜索算法 A\* 算法，具体步骤见[上一个说明文件](https://github.com/KevinNum1/IntelligentSearch/blob/master/README.md)  
 
+## MC 问题的结构体定义
 MC 问题状态信息定义如下：**(左岸的修道士人数，左岸的野人人数，左岸的船只数目)**  
 其中，第三个量也可以直接理解为：当船在左岸时对应的值为 1 ，当船在右岸时对应的值为 0 。  
 
@@ -41,7 +45,7 @@ typedef struct status
 * list.c 包含链表各操作的函数实现；  
 * MCproblem.c 包含 main() 函数。  
 
-程序输出如下图：  
+## 程序输出  
 
 ![MCoutput](https://github.com/KevinNum1/IntelligentSearch/blob/master/images/MCoutput.png)  
 
