@@ -1,7 +1,7 @@
 # 八数码难题
 通过单步移动把下面的矩阵移动成1-8环绕一周的矩阵（即0在中间，1-8顺序排成一圈，1在哪儿无所谓）  
 <p align="center">
-	<img src="https://github.com/KevinNum1/IntelligentSearch/blob/master/images/figure8matrix.png" width="314" height="186">
+	<img src="https://github.com/KevinNum1/IntelligentSearch/blob/master/images/figure8matrix.png" width="157" height="93">
 </p>
 
 ##程序说明
