@@ -10,7 +10,7 @@
 
 
 # 程序说明
-本程序采用 C 语言实现，分别采用 A\* 算法、广度优先搜索算法和深度优先搜索算法。所有搜索算法的具体步骤可以参见[上一个说明文件](https://github.com/KevinNum1/IntelligentSearch/blob/master/README.md)。  
+本程序采用 C 语言实现，分别采用 A\* 算法、广度优先搜索算法和深度优先搜索算法。这三种搜索算法的具体步骤可以参见[上一个说明文件](https://github.com/KevinNum1/IntelligentSearch/blob/master/README.md)。  
 
 我们用二维数组保存八数码矩阵，八数码结构体共包含八数码矩阵、在搜索树中的深度、估价函数值及指向父节点的指针。  
 定义如下：  
