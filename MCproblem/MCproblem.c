@@ -27,8 +27,8 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	puts("Example: \n");
-	fputs("Example: \n\n", fp);
+	puts("Look at an example first: \n");
+	fputs("Look at an example first: \n\n", fp);
 	Item state0 = { NUMBER, NUMBER, 1, 0, 0, NULL };
 	setF(&state0);
 	solveMC(state0, fp);
