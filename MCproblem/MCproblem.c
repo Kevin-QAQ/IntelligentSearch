@@ -17,11 +17,11 @@ int main(void)
 
 	puts("\nPlease enter the number of missionaries and cannibals(exit when you enter q): ");
 	putchar('\t');
-	while (scanf_s("%d", &NUMBER) == 1)
+	while (scanf("%d", &NUMBER) == 1)
 	{
 		puts("Please enter the capacity of the ship: ");
 		putchar('\t');
-		scanf_s("%d", &CAPACITY);
+		scanf("%d", &CAPACITY);
 		Item state = { NUMBER, NUMBER, 1, 0, 0, NULL };
 		putchar('\n');
 		solveMC(state);
@@ -90,7 +90,7 @@ void solveMC(Item state)
 					minimalSteps = closeList->item.deep;
 					printf("\nThe minimal steps are£º\t%d steps.\n", minimalSteps);
 				}
-				printf("\nMethod %d£º\n", methodNumber++);
+				printf("\nMethod %d: \n", methodNumber++);
 				display(&(closeList->item));
 			}
 			else
