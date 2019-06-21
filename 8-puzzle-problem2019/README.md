@@ -48,7 +48,7 @@ typedef struct status
 ## 本程序采用多文件编译  
 * list.h 包含结构体的定义及链表各操作的函数原型；  
 * list.c 包含链表各操作的函数实现；  
-* Figure8Puzzle2019.c 包含 main() 函数、八数码难题的节点扩展算法等。  
+* 8-puzzle-problem.c 包含 main() 函数、八数码难题的节点扩展算法等。  
 
 list.h 和 list.c 主要参考了（美）Stephen Prata 著 云巅工作室译 的书籍 《C Primer Plus（第五版）中文版》 人民邮电出版社 
 
