@@ -33,7 +33,7 @@ int main(void) {
 	int steps[SIZE];
 
 	puts("Look at an example first: \n");
-	puts("Example£º\n");
+	puts("Example: \n");
 	Item state = { { { 2, 8, 3 }, { 1, 0, 4 }, { 5, 6, 7 } }, 0, 0, NULL };
 	puts("Initial state: ");
 	showItem(&state);
@@ -59,17 +59,17 @@ int main(void) {
 	{
 		printf("The minimal steps are: \t%d steps\n\n", minimalSteps);
 
-		puts("A* algorithm:\n");
+		puts("A* algorithm: \n");
 		currentMethodNumber = 1;
 		for (i = 0; i < SIZE; i++)
 			if (steps[i] == minimalSteps)
 				currentMethodNumber = AstarFindAllSolutions(state, target[minimalPath], currentMethodNumber);
 		puts("That's all.\n");
 
-		puts("Breadth-first search:\n");
+		puts("Breadth-first search: \n");
 		BFSearch(state, target[minimalPath]);
 
-		puts("Depth-first search:\n");
+		puts("Depth-first search: \n");
 		DFSearch(state, target[minimalPath], minimalSteps);
 	}
 	else
@@ -103,17 +103,17 @@ int main(void) {
 		{
 			printf("The minimal steps are: \t%d steps\n\n", minimalSteps);
 
-			puts("A* algorithm:\n");
+			puts("A* algorithm: \n");
 			currentMethodNumber = 1;
 			for (i = 0; i < SIZE; i++)
 				if (steps[i] == minimalSteps)
 					currentMethodNumber = AstarFindAllSolutions(state, target[minimalPath], currentMethodNumber);
 			puts("That's all.\n");
 
-			puts("Breadth-first search:\n");
+			puts("Breadth-first search: \n");
 			BFSearch(state, target[minimalPath]);
 
-			puts("Depth-first search:\n");
+			puts("Depth-first search: \n");
 			DFSearch(state, target[minimalPath], minimalSteps);
 		}
 		else
@@ -360,7 +360,7 @@ bool input(Item * pItem)
 	{
 		for (j = 0; j < 3; j++)
 		{
-			scanf_s("%d", &ch[index]);
+			scanf("%d", &ch[index]);
 			if (ch[index] >= 0 && ch[index] <= 8)
 			{
 				for (k = 0; k < index; k++)
