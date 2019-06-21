@@ -29,9 +29,9 @@ int main(void)
 
 	puts("Example: \n");
 	fputs("Example: \n\n", fp);
-	Item state = { NUMBER, NUMBER, 1, 0, 0, NULL };
-	setF(&state);
-	solveMC(state, fp);
+	Item state0 = { NUMBER, NUMBER, 1, 0, 0, NULL };
+	setF(&state0);
+	solveMC(state0, fp);
 
 	puts("Please enter the number of missionaries and cannibals(exit when you enter q): ");
 	putchar('\t');
