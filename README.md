@@ -1,6 +1,6 @@
 # 说明
 本仓库主要解决两道搜索题目：  
-* Figure8Puzzle2019：八数码难题
+* 8-puzzle-problem2019：八数码难题
 * MCproblem：修道士（Missionaries）与野人（Cannibals）问题
 
 两题均采用 C 语言实现，使用的搜索算法有 **A\* 算法**、**广度优先搜索算法**和**深度优先搜索算法**。  
