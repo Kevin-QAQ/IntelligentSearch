@@ -43,13 +43,13 @@ typedef struct status
 ## 本程序采用多文件编译：  
 * list.h 包含结构体的定义及链表各操作的函数原型；  
 * list.c 包含链表各操作的函数实现；  
-* MCproblem.c 包含 main() 函数。  
+* MCproblem.c 包含 main() 函数、MC 问题的节点扩展算法等。  
 
 ## 程序输出  
 
 ![MCoutput](https://github.com/KevinNum1/IntelligentSearch/blob/master/images/MCoutput.png)  
 
-程序首先展示了一个示例，该示例即为题目所求。本程序不仅能输出最少步数的值，还能输出所有最少步数的路径的操作步骤。本程序还允许用户自行输入自定义的修道士总人数和船的最大载客量以求解不同的 MC 问题（野人总人数与修道士总人数相同），输入 q 时程序退出。  
+程序首先展示了一个示例，该示例即为题目所求。本程序不仅能输出最少步数的值，还能输出所有最少步数的路径的操作步骤。本程序还允许用户自行输入自定义的修道士总人数和船的最大载客量以求解不同的 MC 问题（野人总人数与修道士总人数相同），输入 q 时程序退出。**本程序将运行结果输出到命令行并同时保存在文件 output.txt 中。**  
 
 示例一搜索图如下：  
 ![MCsteps](https://github.com/KevinNum1/IntelligentSearch/blob/master/images/MCsteps.png)  
@@ -62,3 +62,4 @@ NUMBER = 11, CAPACITY = 4 时，有 361 个最短路径解，最少步数是 19 
 NUMBER = 10, CAPACITY = 7 时，有 75 个最短路径解，最少步数是 7 步；  
 NUMBER = 19, CAPACITY = 3 时，无解，程序输出 No solution!  
 ```
+可以在输出文件 output.txt 中查看
