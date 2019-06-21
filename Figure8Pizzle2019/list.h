@@ -75,20 +75,4 @@ bool Traverse(const List * plist, const Item * pItem, char(*pfun)(const Item * p
 /*                   and the list is set to empty               */
 void EmptyTheList(List * plist);
 
-char calculateReverseOrder(Item * pItem);
-
-char setF(Item * pItem, const Item * pTarget);
-
-void update(Item * pItem, Item * father, const Item * pTarget, List * pOpenList, char method);
-
-char count(const Item * pItem, const Item * ptarget);
-
-void getRowAndColumn(const Item * pItem, char * pRow0, char * pColumn0, char index);
-
-void display(const Item * pitem);
-
-void showItem(const Item * pItem);
-
-bool Expand(Item * pItem, List * pOpenList, const List * pCloseList, const Item * pTarget, char method);
-
 #endif // LIST_H_INCLUDED
