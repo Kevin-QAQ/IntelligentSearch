@@ -12,8 +12,8 @@ extern int CAPACITY;
 void solveMC(Item state, FILE * fp);
 bool Expand(Item * pItem, List * pOpenList, const List * pCloseList);
 bool isLegal(const Item * pItem);
-char setF(Item * pItem);
 void update(Item * pItem, List * pOpenList);
+char setF(Item * pItem);
 void display(const Item * pItem, FILE * fp);
 void showItem(const Item * pItem, FILE * fp);
 
@@ -236,12 +236,6 @@ bool isLegal(const Item * pItem)	// 判断结点状态是否合法
 		return true;
 }
 
-char setF(Item * pItem)		// 更新结点的估价函数值
-{
-	pItem->f = pItem->deep + (pItem->missionaries + pItem->cannibals - 2 * pItem->boat);
-	return pItem->f;
-}
-
 void update(Item * pItem, List * pOpenList)		// 更新链表
 {
 	setF(pItem);
@@ -250,6 +244,12 @@ void update(Item * pItem, List * pOpenList)		// 更新链表
 		fprintf(stderr, "Problem allocating memory\n\n");
 		exit(EXIT_FAILURE);
 	}
+}
+
+char setF(Item * pItem)		// 更新结点的估价函数值
+{
+	pItem->f = pItem->deep + (pItem->missionaries + pItem->cannibals - 2 * pItem->boat);
+	return pItem->f;
 }
 
 void display(const Item * pItem, FILE * fp)	// 输出安全过河方案
