@@ -45,6 +45,8 @@ typedef struct status
 * list.c 包含链表各操作的函数实现；  
 * MCproblem.c 包含 main() 函数、MC 问题的节点扩展算法等。  
 
+list.h 和 list.c 主要参考了（美）Stephen Prata 著 云巅工作室译 的书籍 《C Primer Plus（第五版）中文版》 人民邮电出版社  
+
 ## 程序输出  
 
 ![MCoutput](https://github.com/KevinNum1/IntelligentSearch/blob/master/images/MCoutput.png)  
