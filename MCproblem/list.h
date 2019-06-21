@@ -72,16 +72,4 @@ bool Traverse(const List * plist, const Item * pItem);
 /*                   and the list is set to empty               */
 void EmptyTheList(List * plist);
 
-char setF(Item * pItem);
-
-void update(Item * pItem, List * pOpenList);
-
-void display(const Item * pitem);
-
-void showItem(const Item * pItem);
-
-bool Expand(Item * pItem, List * pOpenList, const List * pCloseList);
-
-bool isLegal(const Item * pItem);
-
 #endif // LIST_H_INCLUDED

@@ -3,9 +3,6 @@
 
 #include "list.h"
 
-#define SMALLER(X, Y) ((X) > (Y) ? (Y) : (X))
-#define MIN(X, Y, Z) SMALLER(X, SMALLER(Y, Z))
-
 int NUMBER = 3;
 int CAPACITY = 2;
 
@@ -147,153 +144,9 @@ void EmptyTheList(List * plist)
 	}
 }
 
-char setF(Item * pItem)		// 更新结点的估价函数值
-{
-	pItem->f = pItem->deep + (pItem->missionaries + pItem->cannibals - 2 * pItem->boat);
-	return pItem->f;
-}
-
-void update(Item * pItem, List * pOpenList)		// 更新链表
-{
-	setF(pItem);
-	if (AddItem(pItem, pOpenList) == false)
-	{
-		fprintf(stderr, "Problem allocating memory\n\n");
-		exit(EXIT_FAILURE);
-	}
-}
-
-void display(const Item * pItem)	// 输出安全过河方案
-{
-	static int step;
-	if (pItem->parent->parent == NULL)
-	{
-		step = 1;
-		printf("\tStep %3d: ", step);
-		if (pItem->boat == 0)
-			printf(" --->(%1d, %1d)   >>> ", pItem->parent->missionaries - pItem->missionaries, pItem->parent->cannibals - pItem->cannibals);
-		else
-			printf(" <---(%1d, %1d)   >>> ", pItem->missionaries - pItem->parent->missionaries, pItem->cannibals - pItem->parent->cannibals);
-		showItem(pItem);
-	}
-	else
-	{
-		display(pItem->parent);
-		printf("\tStep %3d: ", ++step);
-		if (pItem->boat == 0)
-			printf(" --->(%1d, %1d)   >>> ", pItem->parent->missionaries - pItem->missionaries, pItem->parent->cannibals - pItem->cannibals);
-		else
-			printf(" <---(%1d, %1d)   >>> ", pItem->missionaries - pItem->parent->missionaries, pItem->cannibals - pItem->parent->cannibals);
-		showItem(pItem);
-	}
-}
-
-void showItem(const Item * pItem)	// 输出结点的信息
-{
-	printf(" ( %1d, %1d, %1d ) \n", pItem->missionaries, pItem->cannibals, pItem->boat);
-}
-
 /* local function definition  */
 /* copies an item into a node */
 static void CopyToNode(Item item, Node * pnode)
 {
 	pnode->item = item;  /* structure copy */
-}
-
-// 从当前结点扩展出合法的新结点
-bool Expand(Item * pItem, List * pOpenList, const List * pCloseList)
-{
-	bool boolFlag = false;
-	int deltaM, deltaC;
-	Item temp;
-
-	if (pItem->boat == 0)	// 船在河对岸，需要从对岸运到本岸
-	{
-		// 船上至少一个修道士
-		for (deltaM = 1; deltaM <= SMALLER(NUMBER - pItem->missionaries, CAPACITY); deltaM++)
-		{
-			for (deltaC = 0; deltaC <= MIN(deltaM, NUMBER - pItem->cannibals, CAPACITY - deltaM); deltaC++)
-			{
-				temp = *pItem;
-				temp.missionaries += deltaM;
-				temp.cannibals += deltaC;
-				temp.boat = 1;
-				temp.deep++;
-				if (isLegal(&temp) && !Traverse(pCloseList, &temp))
-				{
-					temp.parent = pItem;
-					boolFlag = true;
-					update(&temp, pOpenList);
-				}
-			}
-		}
-
-		// 船上没有修道士
-		deltaM = 0;
-		for (deltaC = 1; deltaC <= SMALLER(NUMBER - pItem->cannibals, CAPACITY); deltaC++)
-		{
-			temp = *pItem;
-			temp.cannibals += deltaC;
-			temp.boat = 1;
-			temp.deep++;
-			if (isLegal(&temp) && !Traverse(pCloseList, &temp))
-			{
-				temp.parent = pItem;
-				boolFlag = true;
-				update(&temp, pOpenList);
-			}
-		}
-	}
-	else	// 船在本岸，需要运到河对岸
-	{
-		// 船上至少一个修道士
-		for (deltaM = 1; deltaM <= SMALLER(pItem->missionaries, CAPACITY); deltaM++)
-		{
-			for (deltaC = 0; deltaC <= MIN(deltaM, pItem->cannibals, CAPACITY - deltaM); deltaC++)
-			{
-				temp = *pItem;
-				temp.missionaries -= deltaM;
-				temp.cannibals -= deltaC;
-				temp.boat = 0;
-				temp.deep++;
-				if (isLegal(&temp) && !Traverse(pCloseList, &temp))
-				{
-					temp.parent = pItem;
-					boolFlag = true;
-					update(&temp, pOpenList);
-				}
-			}
-		}
-
-		// 船上没有修道士
-		deltaM = 0;
-		for (deltaC = 1; deltaC <= SMALLER(pItem->cannibals, CAPACITY); deltaC++)
-		{
-			temp = *pItem;
-			temp.cannibals -= deltaC;
-			temp.boat = 0;
-			temp.deep++;
-			if (isLegal(&temp) && !Traverse(pCloseList, &temp))
-			{
-				temp.parent = pItem;
-				boolFlag = true;
-				update(&temp, pOpenList);
-			}
-		}
-	}
-
-	return boolFlag;
-}
-
-bool isLegal(const Item * pItem)	// 判断结点状态是否合法
-{
-	if ((pItem->missionaries != 0) && (pItem->missionaries != NUMBER))
-	{
-		if (pItem->missionaries == pItem->cannibals)
-			return true;
-		else
-			return false;
-	}
-	else
-		return true;
 }
