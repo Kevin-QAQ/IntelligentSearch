@@ -76,12 +76,17 @@ list.h 和 list.c 主要参考了（美）Stephen Prata 著 云巅工作室译 �
 
 ## 程序输出
 
-![MCoutput](https://github.com/KevinNum1/IntelligentSearch/blob/master/images/MCoutput.png)
+<div align=center>
+	<img src="https://github.com/KevinNum1/IntelligentSearch/blob/master/images/MCoutput.png"/>
+</div>
 
 程序首先展示了一个示例，该示例即为题目所求。本程序不仅能输出最少步数的值，还能输出所有最少步数的路径的操作步骤。本程序还允许用户自行输入自定义的修道士总人数和船的最大载客量以求解不同的 MC 问题（野人总人数与修道士总人数相同），输入 q 时程序退出。**本程序将运行结果输出到命令行并同时保存在文件 output.txt 中。**
 
 示例一搜索图如下：
-![MCsteps](https://github.com/KevinNum1/IntelligentSearch/blob/master/images/MCsteps.png)
+
+<div align=center>
+	<img src="https://github.com/KevinNum1/IntelligentSearch/blob/master/images/MCsteps.png"/>
+</div>
 
 以下是部分实验数据：（NUMBER表示修道士总人数，CAPACITY表示船的最大载客量）
 
