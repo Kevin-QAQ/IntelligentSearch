@@ -1,7 +1,3 @@
-****
-**Note**: 若无法显示 markdown 公式，请在 Chrome 浏览器中安装插件 MathJax Plugin for Github ([https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related))
-****
-
 # 八数码难题
 
 通过单步移动把下面的矩阵移动成 1\~8 环绕一周的矩阵（即 0 在中间，1\~8 顺序排成一圈，1 在哪儿无所谓）
@@ -15,6 +11,10 @@ $$
 $$
 
 分别用广度优先搜索、深度优先搜索和启发式搜索算法 A* 算法进行搜索。
+
+****
+**Note**: 若无法显示 markdown 公式，请在 Chrome 浏览器中安装插件 MathJax Plugin for Github ([https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related))
+****
 
 # Requirements
 
