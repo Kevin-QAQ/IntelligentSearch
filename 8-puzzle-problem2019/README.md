@@ -22,7 +22,7 @@ $$
 
 # How to use this repository?
 
-若是 windows 操作系统，打开命令提示符并跳转到本目录下，或直接在本目录下打开 Windows PowerShell。若是 Linux 操作系统，打开 terminal 终端并跳转到本目录下。
+在当前目录运行以下命令：
 
 首先将两个 .c 的源文件进行联合编译：
 
