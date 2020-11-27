@@ -16,6 +16,36 @@
 **Note**: 若无法显示 markdown 公式，请在 Chrome 浏览器中安装插件 MathJax Plugin for Github ([https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related))
 ****
 
+# How to use this repository?
+
+若是 windows 操作系统，打开命令提示符并跳转到本目录下，或直接在本目录下打开 Windows PowerShell。若是 Linux 操作系统，打开 terminal 终端并跳转到本目录下。
+
+首先将两个 .c 的源文件进行联合编译：
+
+```
+gcc list.c MCproblem.c -o MCproblem
+```
+
+然后运行编译链接后的可执行程序：
+
+若是在 Windows 命令提示符中：
+
+```
+MCproblem
+```
+
+若是在 Windows PowerShell 中：
+
+```
+.\MCproblem
+```
+
+若是在 Linux terminal 中：
+
+```
+./MCproblem
+```
+
 # 程序说明
 
 该程序采用 C 语言实现，采用全局择优搜索算法 A\* 算法，具体步骤见[上一个说明文件](https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/README.md)

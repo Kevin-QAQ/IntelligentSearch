@@ -3,22 +3,17 @@
 
 #include "list.h"
 
-int NUMBER = 3;
-int CAPACITY = 2;
-
 /* local function prototype */
-static void CopyToNode(Item item, Node * pnode);
+static void CopyToNode(Item item, Node *pnode);
 
 /* interface functions   */
 /* set the list to empty */
-void InitializeList(List * plist)
-{
+void InitializeList(List *plist) {
 	*plist = NULL;
 }
 
 /* returns true if list is empty */
-bool ListIsEmpty(const List * plist)
-{
+bool ListIsEmpty(const List *plist) {
 	if (*plist == NULL)
 		return true;
 	else
@@ -26,9 +21,8 @@ bool ListIsEmpty(const List * plist)
 }
 
 /* returns true if list is full */
-bool ListIsFull(const List * plist)
-{
-	Node * pt;
+bool ListIsFull(const List *plist) {
+	Node *pt;
 	bool full;
 
 	pt = (Node *)malloc(sizeof(Node));
@@ -42,45 +36,39 @@ bool ListIsFull(const List * plist)
 }
 
 /* returns number of nodes */
-unsigned int ListItemCount(const List * plist)
-{
+unsigned int ListItemCount(const List *plist) {
 	unsigned int count = 0;
-	Node * pnode = *plist;    /* set to start of list */
+	Node *pnode = *plist; /* set to start of list */
 
-	while (pnode != NULL)
-	{
+	while (pnode != NULL) {
 		++count;
-		pnode = pnode->next;  /* set to next node     */
+		pnode = pnode->next; /* set to next node     */
 	}
 
 	return count;
 }
 
-// ²åÈëµ½Ò»¸öÓÐÐòµ¥Á´±í¡£º¯ÊýµÄ²ÎÊýÊÇÒ»¸öÖ¸ÏòÁ´±íµÚÒ»¸ö½ÚµãµÄÖ¸ÕëµÄÖ¸Õë£¬ÒÔ¼°Ò»¸öÐèÒª²åÈëµÄÐÂÖµ¡£
-bool AddItem(const Item * pItem, List * plist)
-{	// ÎªÐÂ½Úµã·ÖÅäÄÚ´æ£¬²¢°ÑÐÂÖµ´æ´¢µ½ÐÂ½ÚµãÖÐ£¬Èç¹ûÄÚ´æ·ÖÅäÊ§°Ü£¬º¯Êý·µ»ØFALSE¡£
-	Node * temp = (Node *)malloc(sizeof(Node));
+// æ’å…¥åˆ°ä¸€ä¸ªæœ‰åºå•é“¾è¡¨ã€‚å‡½æ•°çš„å‚æ•°æ˜¯ä¸€ä¸ªæŒ‡å‘é“¾è¡¨ç¬¬ä¸€ä¸ªèŠ‚ç‚¹çš„æŒ‡é’ˆçš„æŒ‡é’ˆï¼Œä»¥åŠä¸€ä¸ªéœ€è¦æ’å…¥çš„æ–°å€¼ã€‚
+bool AddItem(const Item *pItem, List *plist) {
+  // ä¸ºæ–°èŠ‚ç‚¹åˆ†é…å†…å­˜ï¼Œå¹¶æŠŠæ–°å€¼å­˜å‚¨åˆ°æ–°èŠ‚ç‚¹ä¸­ï¼Œå¦‚æžœå†…å­˜åˆ†é…å¤±è´¥ï¼Œå‡½æ•°è¿”å›žFALSEã€‚
+	Node *temp = (Node *)malloc(sizeof(Node));
 	if (temp == NULL)
 		return false;
 	CopyToNode(*pItem, temp);
-	if (ListIsEmpty(plist))
-	{
+	if (ListIsEmpty(plist)) {
 		*plist = temp;
 		temp->next = NULL;
 	}
-	else
-	{
-		Node * p = *plist;
-		if (p->item.f >= pItem->f)
-		{
+	else {
+		Node *p = *plist;
+		if (p->item.f >= pItem->f) {
 			*plist = temp;
 			temp->next = p;
 		}
-		else
-		{	// Ñ°ÕÒÕýÈ·µÄ²åÈëÎ»ÖÃ£¬·½·¨ÊÇ°´Ðò·ÃÎÊÁ´±í£¬Ö±µ½µ½´ïÒ»¸öÆäÖµ´óÓÚ»òµÈÓÚÐÂÖµµÄ½Úµã¡£
+		else { // å¯»æ‰¾æ­£ç¡®çš„æ’å…¥ä½ç½®ï¼Œæ–¹æ³•æ˜¯æŒ‰åºè®¿é—®é“¾è¡¨ï¼Œç›´åˆ°åˆ°è¾¾ä¸€ä¸ªå…¶å€¼å¤§äºŽæˆ–ç­‰äºŽæ–°å€¼çš„èŠ‚ç‚¹ã€‚
 			while (p->next != NULL && p->next->item.f < pItem->f)
 				p = p->next;
-			// ÔÚÁ´±íÖÐ²åÈëÐÂ½Úµã
+			// åœ¨é“¾è¡¨ä¸­æ’å…¥æ–°èŠ‚ç‚¹
 			temp->next = p->next;
 			p->next = temp;
 		}
@@ -88,10 +76,9 @@ bool AddItem(const Item * pItem, List * plist)
 	return true;
 }
 
-// Á´±íÍ·²å·¨
-bool headInserted(const Item * pItem, List * plist)
-{
-	Node * pnew = (Node *)malloc(sizeof(Node));
+// é“¾è¡¨å¤´æ’æ³•
+bool headInserted(const Item *pItem, List *plist) {
+	Node *pnew = (Node *)malloc(sizeof(Node));
 	if (pnew == NULL)
 		return false;
 	CopyToNode(*pItem, pnew);
@@ -100,14 +87,12 @@ bool headInserted(const Item * pItem, List * plist)
 	return true;
 }
 
-// É¾³ýÁ´±íµÄÒ»¸ö½áµã
-bool DeleteItem(List * plist)
-{
+// åˆ é™¤é“¾è¡¨çš„ä¸€ä¸ªç»“ç‚¹
+bool DeleteItem(List *plist) {
 	if (ListIsEmpty(plist))
 		return false;
-	else
-	{
-		Node * temp = *plist;
+	else {
+		Node *temp = *plist;
 		*plist = temp->next;
 		free(temp);
 		return true;
@@ -115,38 +100,33 @@ bool DeleteItem(List * plist)
 }
 
 /* visit each node */
-bool Traverse(const List * plist, const Item * pItem)
-{
-	Node * pnode = *plist;    /* set to start of list   */
+bool Traverse(const List *plist, const Item *pItem) {
+	Node *pnode = *plist; /* set to start of list   */
 	Item temp;
 
-	while (pnode != NULL)
-	{
+	while (pnode != NULL) {
 		temp = pnode->item;
 		if ((pItem->missionaries == temp.missionaries) && (pItem->cannibals == temp.cannibals) && (pItem->boat == temp.boat) && (pItem->deep > temp.deep))
 			return true;
-		pnode = pnode->next;  /* advance to next item   */
+		pnode = pnode->next; /* advance to next item   */
 	}
 	return false;
 }
 
 /* free memory allocated by malloc() */
 /* set list pointer to NULL          */
-void EmptyTheList(List * plist)
-{
-	Node * psave;
+void EmptyTheList(List *plist) {
+	Node *psave;
 
-	while (*plist != NULL)
-	{
+	while (*plist != NULL) {
 		psave = (*plist)->next; /* save address of next node */
-		free(*plist);           /* free current node         */
-		*plist = psave;         /* advance to next node      */
+		free(*plist);			/* free current node         */
+		*plist = psave;			/* advance to next node      */
 	}
 }
 
 /* local function definition  */
 /* copies an item into a node */
-static void CopyToNode(Item item, Node * pnode)
-{
-	pnode->item = item;  /* structure copy */
+static void CopyToNode(Item item, Node *pnode) {
+	pnode->item = item; /* structure copy */
 }

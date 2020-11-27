@@ -6,41 +6,38 @@
 #define SMALLER(X, Y) ((X) > (Y) ? (Y) : (X))
 #define MIN(X, Y, Z) SMALLER(X, SMALLER(Y, Z))
 
-extern int NUMBER;
-extern int CAPACITY;
+static int NUMBER = 3;
+static int CAPACITY = 2;
 
-void solveMC(Item state, FILE * fp);
-bool Expand(Item * pItem, List * pOpenList, const List * pCloseList);
-bool isLegal(const Item * pItem);
-void update(Item * pItem, List * pOpenList);
-char setF(Item * pItem);
-void display(const Item * pItem, FILE * fp);
-void showItem(const Item * pItem, FILE * fp);
+void solveMC(Item state, FILE *fp);
+bool Expand(Item *pItem, List *pOpenList, const List *pCloseList);
+bool isLegal(const Item *pItem);
+void update(Item *pItem, List *pOpenList);
+char setF(Item *pItem);
+void display(const Item *pItem, FILE *fp);
+void showItem(const Item *pItem, FILE *fp);
 
-int main(void)
-{
-	FILE * fp;
-	char * filename = "output.txt";
-	if ((fp = fopen(filename, "w")) == NULL)
-	{
+int main(void) {
+	FILE *fp;
+	char *filename = "output.txt";
+	if ((fp = fopen(filename, "w")) == NULL) {
 		printf("Can't create output file \"%s\"!\n", filename);
 		exit(EXIT_FAILURE);
 	}
 
 	puts("Look at an example first: \n");
 	fputs("Look at an example first: \n\n", fp);
-	Item state0 = { NUMBER, NUMBER, 1, 0, 0, NULL };
+	Item state0 = {NUMBER, NUMBER, 1, 0, 0, NULL};
 	setF(&state0);
 	solveMC(state0, fp);
 
 	puts("Please enter the number of missionaries and cannibals(exit when you enter q): ");
 	putchar('\t');
-	while (scanf("%d", &NUMBER) == 1)
-	{
+	while (scanf("%d", &NUMBER) == 1) {
 		puts("Please enter the capacity of the ship: ");
 		putchar('\t');
 		scanf("%d", &CAPACITY);
-		Item state = { NUMBER, NUMBER, 1, 0, 0, NULL };
+		Item state = {NUMBER, NUMBER, 1, 0, 0, NULL};
 		putchar('\n');
 		solveMC(state, fp);
 		puts("Please enter the number of missionaries and cannibals(exit when you enter q): ");
@@ -53,13 +50,11 @@ int main(void)
 
 	getchar();
 	getchar();
-	getchar();
 
 	return 0;
 }
 
-void solveMC(Item state, FILE * fp)
-{
+void solveMC(Item state, FILE *fp) {
 	printf("Initial state: ");
 	fputs("Initial state: ", fp);
 	showItem(&state, fp);
@@ -68,23 +63,20 @@ void solveMC(Item state, FILE * fp)
 	List openList;
 	List closeList;
 
-	/* ³õÊ¼»¯ */
+	/* åˆå§‹åŒ– */
 	InitializeList(&openList);
-	if (ListIsFull(&openList))
-	{
+	if (ListIsFull(&openList)) {
 		fprintf(stderr, "No Memory available! Bye!\n\n");
 		exit(EXIT_FAILURE);
 	}
 
 	InitializeList(&closeList);
-	if (ListIsFull(&closeList))
-	{
+	if (ListIsFull(&closeList)) {
 		fprintf(stderr, "No Memory available! Bye!\n\n");
 		exit(EXIT_FAILURE);
 	}
 
-	if (AddItem(&state, &openList) == false)
-	{
+	if (AddItem(&state, &openList) == false) {
 		fprintf(stderr, "Problem allocating memory\n\n");
 		exit(EXIT_FAILURE);
 	}
@@ -92,23 +84,18 @@ void solveMC(Item state, FILE * fp)
 	int methodNumber = 1;
 	int minimalSteps = 0;
 
-	while (ListIsEmpty(&openList) == false)
-	{
-		if (headInserted(&(openList->item), &closeList) == false)
-		{
+	while (ListIsEmpty(&openList) == false) {
+		if (headInserted(&(openList->item), &closeList) == false) {
 			fprintf(stderr, "Problem allocating memory\n\n");
 			exit(EXIT_FAILURE);
 		}
 
 		DeleteItem(&openList);
 
-		if((methodNumber == 1) || (closeList->item.deep <= minimalSteps))
-		{
-			// µ½´ïÄ¿±ê×´Ì¬ÁË¡ª¡ªÈ«Ô±¶¼ÔÚºÓ¶Ô°¶
-			if ((closeList->item.missionaries == 0) && (closeList->item.cannibals == 0) && (closeList->item.boat == 0))
-			{
-				if (methodNumber == 1)
-				{
+		if (methodNumber == 1 || closeList->item.deep <= minimalSteps) {
+			// åˆ°è¾¾ç›®æ ‡çŠ¶æ€äº†â€•â€•å…¨å‘˜éƒ½åœ¨æ²³å¯¹å²¸
+			if (closeList->item.missionaries == 0 && closeList->item.cannibals == 0 && closeList->item.boat == 0) {
+				if (methodNumber == 1) {
 					minimalSteps = closeList->item.deep;
 					printf("\nThe minimal steps are: \t%d steps.\n", minimalSteps);
 					fprintf(fp, "\nThe minimal steps are: \t%d steps.\n", minimalSteps);
@@ -120,12 +107,9 @@ void solveMC(Item state, FILE * fp)
 			else
 				Expand(&(closeList->item), &openList, &closeList);
 		}
-		else
-			continue;
 	}
-	// ±éÀúÍêËùÓĞ¿É´ï×´Ì¬Ö®ºóÃ»ÓĞÄ¿±ê×´Ì¬£¬¼´ÎŞ·¨ÔÚ´ËÔ¼ÊøÌõ¼şÏÂ½«ĞŞµÀÊ¿ºÍÒ°ÈËÈ«²¿°²È«ÔË¹ıºÓ
-	if (!minimalSteps)
-	{
+	// éå†å®Œæ‰€æœ‰å¯è¾¾çŠ¶æ€ä¹‹åæ²¡æœ‰ç›®æ ‡çŠ¶æ€ï¼Œå³æ— æ³•åœ¨æ­¤çº¦æŸæ¡ä»¶ä¸‹å°†ä¿®é“å£«å’Œé‡äººå…¨éƒ¨å®‰å…¨è¿è¿‡æ²³
+	if (!minimalSteps) {
 		puts("\nNo solution!");
 		fputs("\nNo solution!\n", fp);
 	}
@@ -138,27 +122,22 @@ void solveMC(Item state, FILE * fp)
 	EmptyTheList(&closeList);
 }
 
-// ´Óµ±Ç°½áµãÀ©Õ¹³öºÏ·¨µÄĞÂ½áµã
-bool Expand(Item * pItem, List * pOpenList, const List * pCloseList)
-{
+// ä»å½“å‰ç»“ç‚¹æ‰©å±•å‡ºåˆæ³•çš„æ–°ç»“ç‚¹
+bool Expand(Item *pItem, List *pOpenList, const List *pCloseList) {
 	bool boolFlag = false;
 	int deltaM, deltaC;
 	Item temp;
 
-	if (pItem->boat == 0)	// ´¬ÔÚºÓ¶Ô°¶£¬ĞèÒª´Ó¶Ô°¶ÔËµ½±¾°¶
-	{
-		// ´¬ÉÏÖÁÉÙÒ»¸öĞŞµÀÊ¿
-		for (deltaM = 1; deltaM <= SMALLER(NUMBER - pItem->missionaries, CAPACITY); deltaM++)
-		{
-			for (deltaC = 0; deltaC <= MIN(deltaM, NUMBER - pItem->cannibals, CAPACITY - deltaM); deltaC++)
-			{
+	if (pItem->boat == 0) { // èˆ¹åœ¨æ²³å¯¹å²¸ï¼Œéœ€è¦ä»å¯¹å²¸è¿åˆ°æœ¬å²¸
+		// èˆ¹ä¸Šè‡³å°‘ä¸€ä¸ªä¿®é“å£«
+		for (deltaM = 1; deltaM <= SMALLER(NUMBER - pItem->missionaries, CAPACITY); ++deltaM) {
+			for (deltaC = 0; deltaC <= MIN(deltaM, NUMBER - pItem->cannibals, CAPACITY - deltaM); ++deltaC) {
 				temp = *pItem;
 				temp.missionaries += deltaM;
 				temp.cannibals += deltaC;
 				temp.boat = 1;
-				temp.deep++;
-				if (isLegal(&temp) && !Traverse(pCloseList, &temp))
-				{
+				++temp.deep;
+				if (isLegal(&temp) && !Traverse(pCloseList, &temp)) {
 					temp.parent = pItem;
 					boolFlag = true;
 					update(&temp, pOpenList);
@@ -166,36 +145,30 @@ bool Expand(Item * pItem, List * pOpenList, const List * pCloseList)
 			}
 		}
 
-		// ´¬ÉÏÃ»ÓĞĞŞµÀÊ¿
+		// èˆ¹ä¸Šæ²¡æœ‰ä¿®é“å£«
 		deltaM = 0;
-		for (deltaC = 1; deltaC <= SMALLER(NUMBER - pItem->cannibals, CAPACITY); deltaC++)
-		{
+		for (deltaC = 1; deltaC <= SMALLER(NUMBER - pItem->cannibals, CAPACITY); ++deltaC) {
 			temp = *pItem;
 			temp.cannibals += deltaC;
 			temp.boat = 1;
-			temp.deep++;
-			if (isLegal(&temp) && !Traverse(pCloseList, &temp))
-			{
+			++temp.deep;
+			if (isLegal(&temp) && !Traverse(pCloseList, &temp)) {
 				temp.parent = pItem;
 				boolFlag = true;
 				update(&temp, pOpenList);
 			}
 		}
 	}
-	else	// ´¬ÔÚ±¾°¶£¬ĞèÒªÔËµ½ºÓ¶Ô°¶
-	{
-		// ´¬ÉÏÖÁÉÙÒ»¸öĞŞµÀÊ¿
-		for (deltaM = 1; deltaM <= SMALLER(pItem->missionaries, CAPACITY); deltaM++)
-		{
-			for (deltaC = 0; deltaC <= MIN(deltaM, pItem->cannibals, CAPACITY - deltaM); deltaC++)
-			{
+	else { // èˆ¹åœ¨æœ¬å²¸ï¼Œéœ€è¦è¿åˆ°æ²³å¯¹å²¸
+		// èˆ¹ä¸Šè‡³å°‘ä¸€ä¸ªä¿®é“å£«
+		for (deltaM = 1; deltaM <= SMALLER(pItem->missionaries, CAPACITY); ++deltaM) {
+			for (deltaC = 0; deltaC <= MIN(deltaM, pItem->cannibals, CAPACITY - deltaM); ++deltaC) {
 				temp = *pItem;
 				temp.missionaries -= deltaM;
 				temp.cannibals -= deltaC;
 				temp.boat = 0;
-				temp.deep++;
-				if (isLegal(&temp) && !Traverse(pCloseList, &temp))
-				{
+				++temp.deep;
+				if (isLegal(&temp) && !Traverse(pCloseList, &temp)) {
 					temp.parent = pItem;
 					boolFlag = true;
 					update(&temp, pOpenList);
@@ -203,16 +176,14 @@ bool Expand(Item * pItem, List * pOpenList, const List * pCloseList)
 			}
 		}
 
-		// ´¬ÉÏÃ»ÓĞĞŞµÀÊ¿
+		// èˆ¹ä¸Šæ²¡æœ‰ä¿®é“å£«
 		deltaM = 0;
-		for (deltaC = 1; deltaC <= SMALLER(pItem->cannibals, CAPACITY); deltaC++)
-		{
+		for (deltaC = 1; deltaC <= SMALLER(pItem->cannibals, CAPACITY); ++deltaC) {
 			temp = *pItem;
 			temp.cannibals -= deltaC;
 			temp.boat = 0;
-			temp.deep++;
-			if (isLegal(&temp) && !Traverse(pCloseList, &temp))
-			{
+			++temp.deep;
+			if (isLegal(&temp) && !Traverse(pCloseList, &temp)) {
 				temp.parent = pItem;
 				boolFlag = true;
 				update(&temp, pOpenList);
@@ -223,10 +194,8 @@ bool Expand(Item * pItem, List * pOpenList, const List * pCloseList)
 	return boolFlag;
 }
 
-bool isLegal(const Item * pItem)	// ÅĞ¶Ï½áµã×´Ì¬ÊÇ·ñºÏ·¨
-{
-	if ((pItem->missionaries != 0) && (pItem->missionaries != NUMBER))
-	{
+bool isLegal(const Item *pItem) { // åˆ¤æ–­ç»“ç‚¹çŠ¶æ€æ˜¯å¦åˆæ³•
+	if ((pItem->missionaries != 0) && (pItem->missionaries != NUMBER)) {
 		if (pItem->missionaries == pItem->cannibals)
 			return true;
 		else
@@ -236,54 +205,44 @@ bool isLegal(const Item * pItem)	// ÅĞ¶Ï½áµã×´Ì¬ÊÇ·ñºÏ·¨
 		return true;
 }
 
-void update(Item * pItem, List * pOpenList)		// ¸üĞÂÁ´±í
-{
+void update(Item *pItem, List *pOpenList) { // æ›´æ–°é“¾è¡¨
 	setF(pItem);
-	if (AddItem(pItem, pOpenList) == false)
-	{
+	if (AddItem(pItem, pOpenList) == false) {
 		fprintf(stderr, "Problem allocating memory\n\n");
 		exit(EXIT_FAILURE);
 	}
 }
 
-char setF(Item * pItem)		// ¸üĞÂ½áµãµÄ¹À¼Ûº¯ÊıÖµ
-{
+char setF(Item *pItem) { // æ›´æ–°ç»“ç‚¹çš„ä¼°ä»·å‡½æ•°å€¼
 	pItem->f = pItem->deep + (pItem->missionaries + pItem->cannibals - 2 * pItem->boat);
 	return pItem->f;
 }
 
-void display(const Item * pItem, FILE * fp)	// Êä³ö°²È«¹ıºÓ·½°¸
-{
+void display(const Item *pItem, FILE *fp) { // è¾“å‡ºå®‰å…¨è¿‡æ²³æ–¹æ¡ˆ
 	static int step;
-	if (pItem->parent->parent == NULL)
-	{
+	if (pItem->parent->parent == NULL) {
 		step = 1;
 		printf("\tStep %3d: ", step);
 		fprintf(fp, "\tStep %3d: ", step);
-		if (pItem->boat == 0)
-		{
+		if (pItem->boat == 0) {
 			printf(" --->(%2d,%2d)   >>> ", pItem->parent->missionaries - pItem->missionaries, pItem->parent->cannibals - pItem->cannibals);
 			fprintf(fp, " --->(%2d,%2d)   >>> ", pItem->parent->missionaries - pItem->missionaries, pItem->parent->cannibals - pItem->cannibals);
 		}
-		else
-		{
+		else {
 			printf(" <---(%2d,%2d)   >>> ", pItem->missionaries - pItem->parent->missionaries, pItem->cannibals - pItem->parent->cannibals);
 			fprintf(fp, " <---(%2d,%2d)   >>> ", pItem->missionaries - pItem->parent->missionaries, pItem->cannibals - pItem->parent->cannibals);
 		}
 		showItem(pItem, fp);
 	}
-	else
-	{
+	else {
 		display(pItem->parent, fp);
 		printf("\tStep %3d: ", ++step);
 		fprintf(fp, "\tStep %3d: ", step);
-		if (pItem->boat == 0)
-		{
+		if (pItem->boat == 0) {
 			printf(" --->(%2d,%2d)   >>> ", pItem->parent->missionaries - pItem->missionaries, pItem->parent->cannibals - pItem->cannibals);
 			fprintf(fp, " --->(%2d,%2d)   >>> ", pItem->parent->missionaries - pItem->missionaries, pItem->parent->cannibals - pItem->cannibals);
 		}
-		else
-		{
+		else {
 			printf(" <---(%2d,%2d)   >>> ", pItem->missionaries - pItem->parent->missionaries, pItem->cannibals - pItem->parent->cannibals);
 			fprintf(fp, " <---(%2d,%2d)   >>> ", pItem->missionaries - pItem->parent->missionaries, pItem->cannibals - pItem->parent->cannibals);
 		}
@@ -291,8 +250,7 @@ void display(const Item * pItem, FILE * fp)	// Êä³ö°²È«¹ıºÓ·½°¸
 	}
 }
 
-void showItem(const Item * pItem, FILE * fp)	// Êä³ö½áµãµÄĞÅÏ¢
-{
+void showItem(const Item *pItem, FILE *fp) { // è¾“å‡ºç»“ç‚¹çš„ä¿¡æ¯
 	printf(" (%2d,%2d,%2d) \n", pItem->missionaries, pItem->cannibals, pItem->boat);
 	fprintf(fp, " (%2d,%2d,%2d) \n", pItem->missionaries, pItem->cannibals, pItem->boat);
 }

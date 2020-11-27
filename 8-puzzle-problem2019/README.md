@@ -20,6 +20,36 @@ $$
 
 支持 C99 标准的 C 语言环境
 
+# How to use this repository?
+
+若是 windows 操作系统，打开命令提示符并跳转到本目录下，或直接在本目录下打开 Windows PowerShell。若是 Linux 操作系统，打开 terminal 终端并跳转到本目录下。
+
+首先将两个 .c 的源文件进行联合编译：
+
+```
+gcc list.c 8-puzzle-problem.c -o 8-puzzle-problem
+```
+
+然后运行编译链接后的可执行程序：
+
+若是在 Windows 命令提示符中：
+
+```
+8-puzzle-problem
+```
+
+若是在 Windows PowerShell 中：
+
+```
+.\8-puzzle-problem
+```
+
+若是在 Linux terminal 中：
+
+```
+./8-puzzle-problem
+```
+
 # 程序说明
 
 本程序采用 C 语言实现，分别采用 A\* 算法、广度优先搜索算法和深度优先搜索算法。这三种搜索算法的具体步骤可以参见[上一个说明文件](https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/README.md)。需要注意的是，由于求解八数码难题的状态空间十分巨大（见后文），本程序实现的深度优先搜索算法的最大搜索深度被限制为事先由 A* 算法求得的最少步数。
