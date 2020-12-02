@@ -1,4 +1,4 @@
-# 说明
+# Kevin-QAQ/IntelligentSearch
 
 本仓库主要解决两道搜索题目：
 
