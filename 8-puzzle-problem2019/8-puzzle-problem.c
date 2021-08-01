@@ -51,7 +51,7 @@ int main(void) {
 	int steps[SIZE];
 
 	FILE *fp;
-	char *filename = "output.txt";
+	const char filename[] = "output.txt";
 	if ((fp = fopen(filename, "w")) == NULL) {
 		printf("Can't create output file \"%s\"!\n", filename);
 		exit(EXIT_FAILURE);
