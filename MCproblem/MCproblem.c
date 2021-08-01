@@ -19,7 +19,7 @@ void showItem(const Item *pItem, FILE *fp);
 
 int main(void) {
 	FILE *fp;
-	char *filename = "output.txt";
+	const char filename[] = "output.txt";
 	if ((fp = fopen(filename, "w")) == NULL) {
 		printf("Can't create output file \"%s\"!\n", filename);
 		exit(EXIT_FAILURE);
