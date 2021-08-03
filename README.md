@@ -2,7 +2,7 @@
 
 本仓库主要解决两道搜索题目：
 
-* 8-puzzle-problem2019：八数码难题
+* 8-puzzle-problem：八数码难题
 
 * MCproblem：修道士（Missionaries）与野人（Cannibals）问题
 
