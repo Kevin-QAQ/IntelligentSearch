@@ -1,131 +1,131 @@
-# 修道士(Missionaries)和野人(Cannibals)问题(简称 M-C 问题)
+# Missionaries and Cannibals Problem (M-C Problem for short)
 
-设在河的一岸有三个野人、三个修道士和一条船，修道士想用这条船把所有的人运到河对岸，但受以下条件的约束：
+On one bank of the river there are three cannibals, three missionaries, and a boat, and the missionaries want to use this boat to transport all the people to the other side of the river, subject to the following conditions:
 
-1. 修道士和野人都会划船，但每次船上至多可载两个人；
+1. Both missionaries and cannibals can row, but at most two people can be carried on each boat;
 
-2. 在河的任一岸，如果野人数目超过修道士数，修道士会被野人吃掉。
+2. On either bank of the river, if the number of cannibals exceeds the number of missionaries, the missionaries will be eaten by cannibals.
 
-如果野人会服从任何一次过河安排，请规划一个确保修道士和野人都能过河，且没有修道士被野人吃掉的安全过河计划。
+If cannibals will obey any river crossing arrangements, please plan a safe crossing plan that ensures both missionaries and cannibals can cross the river, and that no missionaries are eaten by cannibals.
 
 # Requirements
 
-支持 C99 标准的 C 语言环境
+C locale that supports the C99 standard
 
 ****
-**Note**: 若无法显示 markdown 公式，请在 Chrome 浏览器中安装插件 MathJax Plugin for Github ([https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related))
+**Note**: If the markdown formula cannot be displayed, please install the plugin MathJax Plugin for Github in Chrome browser ([https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/ related](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related))
 ****
 
 # How to use this repository?
 
-在当前目录运行以下命令：
+Run the following command in the current directory:
 
-首先将两个 .c 的源文件进行联合编译：
+First, jointly compile the two .c source files:
 
-```
+````
 gcc list.c MCproblem.c -o MCproblem
-```
+````
 
-然后运行编译链接后的可执行程序：
+Then run the compiled and linked executable:
 
-若是在 Windows 命令提示符中：
+If in a Windows command prompt:
 
-```
+````
 MCproblem
-```
+````
 
-若是在 Windows PowerShell 中：
+If in Windows PowerShell:
 
-```
+````
 .\MCproblem
-```
+````
 
-若是在 Linux terminal 中：
+If in Linux terminal:
 
-```
+````
 ./MCproblem
-```
+````
 
-# 程序说明
+# Program Description
 
-该程序采用 C 语言实现，采用全局择优搜索算法 A\* 算法，具体步骤见[上一个说明文件](https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/README.md)
+The program is implemented in C language and adopts the global optimal search algorithm A\* algorithm. For the specific steps, see the [previous document](https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/README.md)
 
-## MC 问题的结构体定义
+## Structure definition of M-C Problem
 
-MC 问题状态信息定义如下：**(左岸的修道士人数，左岸的野人人数，左岸的船只数目)**
-可以采用三元组 $(m, c, b)$ 表示，其中，第三个量也可以直接理解为：当船在左岸时对应的值为 1 ，当船在右岸时对应的值为 0 。
+The M-C Problem state information is defined as follows: **(Number of missionaries on the left bank, number of cannibals on the left bank, number of ships on the left bank)**
+It can be represented by a triple $(m, c, b)$, where the third quantity can also be directly understood as: when the ship is on the left bank, the corresponding value is 1 , when the ship is on the right bank, the corresponding value is 0 .
 
-MC 问题结构体共包含 MC 状态信息、在搜索树中的深度、估价函数值及指向父节点的指针。
-具体定义如下：
+The M-C Problem structure contains the M-C state information, the depth in the search tree, the evaluation function value and the pointer to the parent node.
+The specific definitions are as follows:
 
-```c
+````c
 typedef struct status
 {
-	int missionaries;
-	int cannibals;
-	char boat;
-	int deep;
-	int f;
-	struct status * parent;
+int missionaries;
+int cannibals;
+char boat;
+int deep;
+int f;
+struct status * parent;
 } Item;
-```
+````
 
-## 本程序 MC 问题的节点扩展算法:
+## The node expansion algorithm of this program:
 
-若船从对岸运回本岸，则 MC 状态信息中人数就增加；
-若船从本岸运到对岸，则 MC 状态信息中人数就减少。
-且船上的人数需要满足以下三个条件：
+If the ship is transported from the opposite bank to the local bank, the number of people in the M-C status information will increase;
+If the ship is transported from the local shore to the opposite shore, the number of people in the M-C status information will be reduced.
+The number of people on board must meet the following three conditions:
 
-1. 船上修道士的人数非负且不超过起点岸的修道士人数，野人同理；
+1. The number of missionaries on board is not negative and does not exceed the number of missionaries on the starting bank, and the same is true for cannibals;
 
-2. 船上修道士和野人的总数不超过船的最大容量；
+2. The total number of missionaries and cannibals on board does not exceed the maximum capacity of the ship;
 
-3. 若船上至少有一名修道士，则野人人数不能超过修道士人数。
+3. If there is at least one missionary on board, the number of cannibals cannot exceed the number of missionaries.
 
-同时需要判断扩展出来的结点是否合法：
+At the same time, it is necessary to judge whether the extended node is legal:
 
-**如果在任一岸都至少有一名修道士，则在任一岸修道士和野人人数都必须相等。**
+**If there is at least one missionary on either bank, the number of missionaries and cannibals must be equal on either bank. **
 
-## 本程序 MC 问题的估价函数/启发函数：
+## The evaluation function/Heuristic function of this program:
 
 $$f=d+h$$
 
-其中 $h=m+c-2\times b$
+where $h=m+c-2\times b$
 
-其中，$d$ 表示节点的深度，$(m, c, b)$ 为 MC 问题的状态信息，即 $m$ 表示左岸的修道士人数，$c$ 表示左岸的野人人数，$b$ 表示左岸的船只数目。
+where, $d$ represents the depth of the node, $(m, c, b)$ is the state information of the M-C Problem, that is, $m$ represents the number of missionaries on the left bank, $c$ represents the number of cannibals on the left bank, and $b$ represents the number of ships on the left bank.
 
-## 本程序采用多文件编译：
+## This program is compiled with multiple files:
 
-* list.h 包含结构体的定义及链表各操作的函数原型；
+* list.h contains the definition of the structure and the function prototype of each operation of the linked list;
 
-* list.c 包含链表各操作的函数实现；
+* list.c contains the function implementation of each operation of the linked list;
 
-* MCproblem.c 包含 main() 函数、MC 问题的节点扩展算法等。
+* MCproblem.c contains the function main(), the node expansion algorithm for M-C Problems, etc.
 
-list.h 和 list.c 主要参考了（美）Stephen Prata 著 云巅工作室译 的书籍 《C Primer Plus（第五版）中文版》 人民邮电出版社
+list.h and list.c mainly refer to Stephen Prata's book "C Primer Plus (Fifth Edition)"
 
-## 程序输出
-
-<div align=center>
-	<img src="https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/images/MCoutput.png"/>
-</div>
-
-程序首先展示了一个示例，该示例即为题目所求。本程序不仅能输出最少步数的值，还能输出所有最少步数的路径的操作步骤。本程序还允许用户自行输入自定义的修道士总人数和船的最大载客量以求解不同的 MC 问题（野人总人数与修道士总人数相同），输入 q 时程序退出。**本程序将运行结果输出到命令行并同时保存在文件 output.txt 中。**
-
-示例一搜索图如下：
+## Program Output
 
 <div align=center>
-	<img src="https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/images/MCsteps.png"/>
+<img src="https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/images/MCoutput.png"/>
 </div>
 
-以下是部分实验数据：（NUMBER表示修道士总人数，CAPACITY表示船的最大载客量）
+The program first shows an example, which is what the title asks for. This program can not only output the value of the minimum number of steps, but also output the operation steps of all paths with the minimum number of steps. This program also allows the user to enter the custom total number of missionaries and the maximum passenger capacity of the ship to solve different M-C Problems (the total number of cannibals is the same as the total number of missionaries), and the program exits when q is input. **This program outputs the running result to the command line and saves it in the file output.txt at the same time. **
 
-```
-NUMBER = 10, CAPACITY = 4 时，有 361 个最短路径解，最少步数是 17 步；
-NUMBER = 10, CAPACITY = 3 时，无解，程序输出 No solution!
-NUMBER = 11, CAPACITY = 4 时，有 361 个最短路径解，最少步数是 19 步；
-NUMBER = 10, CAPACITY = 7 时，有 75 个最短路径解，最少步数是 7 步；
-NUMBER = 19, CAPACITY = 3 时，无解，程序输出 No solution!
-```
+Example 1 search graph is as follows:
 
-可以在输出文件 output.txt 中查看
+<div align=center>
+<img src="https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/images/MCsteps.png"/>
+</div>
+
+The following are some experimental data: (NUMBER represents the total number of missionaries, CAPACITY represents the maximum passenger capacity of the ship)
+
+````
+When NUMBER = 10, CAPACITY = 4, there are 361 shortest path solutions, and the minimum number of steps is 17;
+When NUMBER = 10, CAPACITY = 3, there is no solution, and the program outputs No solution!
+When NUMBER = 11, CAPACITY = 4, there are 361 shortest path solutions, and the minimum number of steps is 19;
+When NUMBER = 10, CAPACITY = 7, there are 75 shortest path solutions, and the minimum number of steps is 7;
+When NUMBER = 19, CAPACITY = 3, there is no solution, and the program outputs No solution!
+````
+
+These can be viewed in the output file output.txt.

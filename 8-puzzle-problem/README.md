@@ -1,6 +1,6 @@
-# 八数码难题
+# Eight-Puzzle Problem
 
-通过单步移动把下面的矩阵移动成 1\~8 环绕一周的矩阵（即 0 在中间，1\~8 顺序排成一圈，1 在哪儿无所谓）
+Move the following matrix into a matrix of 1\~8 surrounding a circle (that is, 0 is in the center, 1\~8 are arranged in a circle, and it doesn't matter where the 1 is) by single-step movement
 
 $$
 \begin{matrix}
@@ -10,99 +10,99 @@ $$
 \end{matrix}
 $$
 
-分别用广度优先搜索、深度优先搜索和启发式搜索算法 A* 算法进行搜索。
+Search with Breadth First Search, Depth First Search and Heuristic Search Algorithm A* Algorithm respectively.
 
 ****
-**Note**: 若无法显示 markdown 公式，请在 Chrome 浏览器中安装插件 MathJax Plugin for Github ([https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related))
+**Note**: If the markdown formula cannot be displayed, please install the plugin MathJax Plugin for Github in Chrome browser ([https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/ related](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related))
 ****
 
 # Requirements
 
-支持 C99 标准的 C 语言环境
+C locale that supports the C99 standard
 
 # How to use this repository?
 
-在当前目录运行以下命令：
+Run the following command in the current directory:
 
-首先将两个 .c 的源文件进行联合编译：
+First, jointly compile the two .c source files:
 
-```
+````
 gcc list.c 8-puzzle-problem.c -o 8-puzzle-problem
-```
+````
 
-然后运行编译链接后的可执行程序：
+Then run the compiled and linked executable:
 
-若是在 Windows 命令提示符中：
+If in a Windows command prompt:
 
-```
+````
 8-puzzle-problem
-```
+````
 
-若是在 Windows PowerShell 中：
+If in Windows PowerShell:
 
-```
+````
 .\8-puzzle-problem
-```
+````
 
-若是在 Linux terminal 中：
+If in Linux terminal:
 
-```
+````
 ./8-puzzle-problem
-```
+````
 
-# 程序说明
+# Program Description
 
-本程序采用 C 语言实现，分别采用 A\* 算法、广度优先搜索算法和深度优先搜索算法。这三种搜索算法的具体步骤可以参见[上一个说明文件](https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/README.md)。需要注意的是，由于求解八数码难题的状态空间十分巨大（见后文），本程序实现的深度优先搜索算法的最大搜索深度被限制为事先由 A* 算法求得的最少步数。
+This program is implemented in C language, using A\* algorithm, Breadth-First Search algorithm and Depth-First Search algorithm respectively. The specific steps of these three search algorithms can be found in the [previous document](https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/README.md). It should be noted that due to the huge state space for solving the Eight-Puzzle Problem (see below), the maximum search depth of the Depth-First Search algorithm implemented by this program is limited to the minimum number of steps obtained by the A* algorithm in advance.
 
-## 定义八数码难题的结构体
+## Define the structure of the Eight-Puzzle Problem
 
-我们用二维数组保存八数码矩阵，八数码结构体共包含八数码矩阵、在搜索树中的深度、估价函数值及指向父节点的指针。定义如下：
+We use a two-dimensional array to store the matrix. The structure contains a total of matrix, the depth in the search tree, the evaluation function value, and the pointer to the parent node. Defined as follows:
 
-```c
+````c
 typedef struct status
 {
-	char chessboard[3][3];
-	int deep;
-	int f;
-	struct status * parent;
+char chessboard[3][3];
+int deep;
+int f;
+struct status * parent;
 } Item;
-```
+````
 
-## 本程序八数码难题的节点扩展算法
+## The node expansion algorithm of this program
 
-找到八数码矩阵中数字 0 的位置，判断数字 0 上下左右是否有数字可以移动到数字 0 处得到新的节点。代码中采用 expand() 函数实现。
+Find the position of the number 0 in the matrix, and judge whether there are numbers around the number 0 that can be moved to the number 0 to get a new node. The code is implemented using the function expand().
 
-## 判断八数码难题是否有解
+## Determine whether the Eight-Puzzle Problem has a solution
 
-由于在无解情况下，A\* 算法需要遍历 9!/2=181440 种情况，与广度优先搜索和深度优先搜索相同，所需要的时间和空间开销都较大，故采用计算排列的逆序数的方法来判断两种八数码状态是否可达：
+Since in the case of no solution, the A\* algorithm needs to traverse 9!/2=181440 cases, which is the same as the Breadth-First Search and Depth-First Search, and the time and space overheads required are large, so the method of calculating the reverse order number is used to judge whether two states are reachable:
 
-**逆序数：**
-> 在 n 个元素的任一排列中，当某两个元素的先后次序与标准次序不同时，就说有一个逆序。
-> 一个排序中的所有逆序的总数叫做这个排列的逆序数。
-> 设 P1 P2 …… Pn 为 n 个自然数的一个排列，
-> 考虑元素 Pi (i=1,2,……,n)，如果比 Pi 大的且排在 Pi 前面的元素有 Ti 个，就说 Pi 这个元素的逆序数是 Ti，
-> 全体元素的逆序数之总和即是这个排列的逆序数。
+**Reverse Order Number:**
+> In any permutation of n elements, a reverse order is said to exist when the order of two elements differs from the standard order.
+> The total number of all inversions in an ordering is called the reverse order number of this ordering.
+> Let P1 P2 ...... Pn be a permutation of n natural numbers,
+> Considering the element Pi (i=1,2,...,n), if there are Ti elements larger than Pi and preceded by Pi, we say that the reverse order number of the element Pi is Ti,
+> The sum of the reverse order numbers of all elements is the reverse order number of this arrangement.
 
-考虑八数码难题：将八数码展开成一维数组，计算除 0 以外所有数的逆序数之和，如果两个状态的逆序数奇偶性不同，则这两个状态不可达；反之，则可达。代码中采用 calculateReverseOrder() 函数实现。
+Consider the Eight-Puzzle Problem: expand the matrix into a one-dimensional array, and calculate the sum of the reverse order numbers of all elements except 0. If the parity of the reverse order numbers of the two states is different, the two states are unreachable; otherwise, they are reachable. The code is implemented using the function calculateReverseOrder().
 
-## 估价函数/启发函数
+## Evaluation function/Heuristic function
 
-本程序分别实现了两种启发函数：
+This program implements two heuristic functions:
 
-* 启发函数一：W(n) 表示节点 n 中与目标状态相比“不在位”的数码个数；
+* Heuristic function 1: W(n) represents the number of digits in node n that are "not in place" compared with the target state;
 
-* 启发函数二：W(n) 定义为每一个数码与其目标位置之间距离（不考虑夹在其间的数码）的总和。
+* Heuristic function 2: W(n) is defined as the sum of the distance between each digit and its target position (regardless of the digits sandwiched in between).
 
-在 8-puzzle-problem.c 中通过设置宏 METHOD 的值为 1 或 2 可以选择采用启发函数一或启发函数二，包含在 setF() 函数中。（使用启发函数二搜索速度远快于启发函数一）
+In 8-puzzle-problem.c, you can choose to use heuristic function 1 or heuristic function 2 by setting the value of macro METHOD to 1 or 2, which is included in the function setF(). (Using heuristic function 2 is much faster than heuristic function 1)
 
-## 本程序采用多文件编译
+## This program is compiled with multiple files
 
-* list.h 包含结构体的定义及链表各操作的函数原型；
-* list.c 包含链表各操作的函数实现；
-* 8-puzzle-problem.c 包含 main() 函数、八数码难题的节点扩展算法等。
+* list.h contains the definition of the structure and the function prototype of each operation of the linked list;
+* list.c contains the function implementation of each operation of the linked list;
+* 8-puzzle-problem.c contains the function main(), the node expansion algorithm, etc.
 
-list.h 和 list.c 主要参考了（美）Stephen Prata 著 云巅工作室译 的书籍 《C Primer Plus（第五版）中文版》 人民邮电出版社
+list.h and list.c mainly refer to Stephen Prata's book "C Primer Plus (Fifth Edition)"
 
-## 运行
+## Run
 
-本程序首先展示了一个示例，该示例即为题目所求。本程序不仅能输出最少步数的值，还能输出所有步数最少的路径的操作步骤，本题至少需要 16 步才能移动成 1~8 环绕一周的状态；本程序还允许用户自行输入初始状态和目标状态并设置了程序出口：当用户在初始状态中输入 q 时程序退出。**本程序将运行结果输出到命令行并同时保存在文件 output.txt 中。**
+The program first shows an example, which is what the title asks for. This program can not only output the value of the minimum number of steps, but also output the operation steps of all paths with the minimum number of steps. This problem requires at least 16 steps to move into a state of 1~8 circles; this program also allows the user to input the initial state and target state and the program exits when the user enters q in the initial state. **This program outputs the running result to the command line and saves it in the file output.txt at the same time. **
