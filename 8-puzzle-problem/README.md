@@ -1,5 +1,7 @@
 # Eight-Puzzle Problem
 
+English | [简体中文](https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/8-puzzle-problem/README_zh-cn.md)
+
 Move the following matrix into a matrix of 1\~8 surrounding a circle (that is, 0 is in the center, 1\~8 are arranged in a circle, and it doesn't matter where the 1 is) by single-step movement
 
 $$

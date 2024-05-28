@@ -1,5 +1,7 @@
 # Kevin-QAQ/IntelligentSearch
 
+English | [简体中文](https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/README_zh-cn.md)
+
 This repository mainly solves two search problems:
 
 * 8-puzzle-problem: Eight-Puzzle Problem

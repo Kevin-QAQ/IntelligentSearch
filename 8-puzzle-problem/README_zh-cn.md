@@ -1,5 +1,7 @@
 # 八数码难题
 
+[English](https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/8-puzzle-problem/README.md) | 简体中文
+
 通过单步移动把下面的矩阵移动成 1\~8 环绕一周的矩阵（即 0 在中间，1\~8 顺序排成一圈，1 在哪儿无所谓）
 
 $$

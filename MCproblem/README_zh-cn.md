@@ -1,5 +1,7 @@
 # 修道士(Missionaries)和野人(Cannibals)问题(简称 M-C 问题)
 
+[English](https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/MCproblem/README.md) | 简体中文
+
 设在河的一岸有三个野人、三个修道士和一条船，修道士想用这条船把所有的人运到河对岸，但受以下条件的约束：
 
 1. 修道士和野人都会划船，但每次船上至多可载两个人；

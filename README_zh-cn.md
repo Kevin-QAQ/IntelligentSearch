@@ -1,5 +1,7 @@
 # Kevin-QAQ/IntelligentSearch
 
+[English](https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/README.md) | 简体中文
+
 本仓库主要解决两道搜索题目：
 
 * 8-puzzle-problem：八数码难题

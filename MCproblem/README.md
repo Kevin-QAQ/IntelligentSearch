@@ -1,5 +1,7 @@
 # Missionaries and Cannibals Problem (M-C Problem for short)
 
+English | [简体中文](https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/MCproblem/README_zh-cn.md)
+
 On one bank of the river there are three cannibals, three missionaries, and a boat, and the missionaries want to use this boat to transport all the people to the other side of the river, subject to the following conditions:
 
 1. Both missionaries and cannibals can row, but at most two people can be carried on each boat;
