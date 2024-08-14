@@ -1,4 +1,4 @@
-# Kevin-QAQ/IntelligentSearch
+# 说明文档
 
 [English](https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/README.md) | 简体中文
 
@@ -9,6 +9,12 @@
 * MCproblem：修道士（Missionaries）与野人（Cannibals）问题
 
 两题均采用 C 语言实现，使用的搜索算法有 **A\* 算法**、**广度优先搜索算法**和**深度优先搜索算法**。
+
+## 来源
+
+此代码在GitHub上维护，链接如下：
+
+[https://github.com/Kevin-QAQ/IntelligentSearch](https://github.com/Kevin-QAQ/IntelligentSearch)
 
 ## 搜索算法
 

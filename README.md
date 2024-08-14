@@ -1,4 +1,4 @@
-# Kevin-QAQ/IntelligentSearch
+# Intelligent Search Documentation
 
 English | [简体中文](https://github.com/Kevin-QAQ/IntelligentSearch/blob/master/README_zh-cn.md)
 
@@ -9,6 +9,12 @@ This repository mainly solves two search problems:
 * MCproblem: Missionaries and Cannibals Problem
 
 Both questions are implemented in C language, and the search algorithms used are **A\* algorithm**, **Breadth-First Search algorithm** and **Depth-First Search algorithm**.
+
+## Origin
+
+This code is maintained on GitHub at the following link:
+
+[https://github.com/Kevin-QAQ/IntelligentSearch](https://github.com/Kevin-QAQ/IntelligentSearch)
 
 ## Search Algorithm
 
